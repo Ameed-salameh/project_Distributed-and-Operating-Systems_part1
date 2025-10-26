@@ -9,3 +9,5 @@ app.get('/', (req, res) => {
 app.listen(PORT, () => {
   console.log(`order_service listening on port ${PORT}`);
 });
+
+

@@ -1,0 +1,43 @@
+version: "3.9"
+
+services:
+  catalog:
+    image: node:18-alpine
+    working_dir: /app
+    volumes:
+      - ./catalog_service:/app
+    command: ["node", "server.js"]
+    environment:
+      - PORT=8081
+    ports:
+      - "8081:8081"
+
+  order:
+    image: node:18-alpine
+    working_dir: /app
+    volumes:
+      - ./order_service:/app
+    command: ["node", "server.js"]
+    environment:
+      - PORT=8082
+      - CATALOG_URL=http://catalog:8081
+    depends_on:
+      - catalog
+    ports:
+      - "8082:8082"
+
+  frontend:
+    image: node:18-alpine
+    working_dir: /app
+    volumes:
+      - ./client_service:/app
+    command: ["node", "server.js"]
+    environment:
+      - PORT=8080
+      - CATALOG_URL=http://catalog:8081
+      - ORDER_URL=http://order:8082
+    depends_on:
+      - catalog
+      - order
+    ports:
+      - "8080:8080"
