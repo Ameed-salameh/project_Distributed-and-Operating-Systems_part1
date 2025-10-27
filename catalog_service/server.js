@@ -27,6 +27,49 @@ app.get('/search/:topic', (req, res) => {
   }
 });
 
+// POST /update -> body: { id: number, price?: number, quantityDelta?: number }
+app.post('/update', (req, res) => {
+  try {
+    const { id, price, quantityDelta } = req.body || {};
+    const parsedId = parseInt(id, 10);
+    if (Number.isNaN(parsedId)) {
+      return res.status(400).json({ error: 'invalid_id' });
+    }
+    const raw = fs.readFileSync(DATA_PATH, 'utf8');
+    const books = JSON.parse(raw);
+    const idx = books.findIndex(b => b.id === parsedId);
+    if (idx === -1) {
+      return res.status(404).json({ error: 'not_found' });
+    }
+    // update price if provided
+    if (price !== undefined) {
+      const p = Number(price);
+      if (!Number.isFinite(p) || p < 0) {
+        return res.status(400).json({ error: 'invalid_price' });
+      }
+      books[idx].price = p;
+    }
+    // apply quantity delta if provided
+    if (quantityDelta !== undefined) {
+      const qd = parseInt(quantityDelta, 10);
+      if (!Number.isFinite(qd)) {
+        return res.status(400).json({ error: 'invalid_quantityDelta' });
+      }
+      const newQty = (parseInt(books[idx].quantity, 10) || 0) + qd;
+      if (newQty < 0) {
+        return res.status(400).json({ error: 'quantity_cannot_be_negative' });
+      }
+      books[idx].quantity = newQty;
+    }
+    fs.writeFileSync(DATA_PATH, JSON.stringify(books, null, 2), 'utf8');
+    const { title, quantity, price: newPrice } = books[idx];
+    return res.json({ id: parsedId, title, quantity, price: newPrice });
+  } catch (err) {
+    console.error('update error:', err.message);
+    return res.status(500).json({ error: 'internal_error' });
+  }
+});
+
 // GET /info/:id -> returns { title, quantity, price }
 app.get('/info/:id', (req, res) => {
   try {

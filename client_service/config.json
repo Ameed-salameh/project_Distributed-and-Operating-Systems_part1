@@ -1,0 +1,4 @@
+{
+  "CATALOG_URL": "http://localhost:3001",
+  "ORDER_URL": "http://localhost:3002"
+}
