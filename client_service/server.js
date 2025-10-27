@@ -1,11 +1,11 @@
 const express = require('express');
 const app = express();
-const PORT = process.env.PORT || 3002;
+const PORT = process.env.PORT || 3000;
 
 app.get('/', (req, res) => {
-  res.send('order_service is running');
+  res.send('client_service is running');
 });
 
 app.listen(PORT, () => {
-  console.log(`order_service listening on port ${PORT}`);
+  console.log(`client_service listening on port ${PORT}`);
 });

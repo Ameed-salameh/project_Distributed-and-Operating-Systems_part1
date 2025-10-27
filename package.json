@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start:client": "node client_service/server.js",
+    "start:catalog": "node catalog_service/server.js",
+    "start:order": "node order_service/server.js"
   },
   "keywords": [],
   "author": "",
