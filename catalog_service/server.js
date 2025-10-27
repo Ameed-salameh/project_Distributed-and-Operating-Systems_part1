@@ -7,6 +7,29 @@ const DATA_PATH = path.join(__dirname, 'catalog.json');
 
 app.use(express.json());
 
+// Simple in-process mutex to serialize updates
+const updateLock = {
+  locked: false,
+  queue: [],
+};
+function acquireLock() {
+  return new Promise(resolve => {
+    if (!updateLock.locked) {
+      updateLock.locked = true;
+      return resolve();
+    }
+    updateLock.queue.push(resolve);
+  });
+}
+function releaseLock() {
+  const next = updateLock.queue.shift();
+  if (next) {
+    next();
+  } else {
+    updateLock.locked = false;
+  }
+}
+
 app.get('/', (req, res) => {
   res.send('catalog_service is running');
 });
@@ -28,7 +51,8 @@ app.get('/search/:topic', (req, res) => {
 });
 
 // POST /update -> body: { id: number, price?: number, quantityDelta?: number }
-app.post('/update', (req, res) => {
+app.post('/update', async (req, res) => {
+  await acquireLock();
   try {
     const { id, price, quantityDelta } = req.body || {};
     const parsedId = parseInt(id, 10);
@@ -67,6 +91,8 @@ app.post('/update', (req, res) => {
   } catch (err) {
     console.error('update error:', err.message);
     return res.status(500).json({ error: 'internal_error' });
+  } finally {
+    releaseLock();
   }
 });
 

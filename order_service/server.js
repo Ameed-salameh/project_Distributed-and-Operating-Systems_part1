@@ -52,8 +52,9 @@ app.post('/purchase/:id', async (req, res) => {
       return res.status(400).json({ error: 'invalid_id' });
     }
 
-    const config = readJSON(CONFIG_PATH) || {};
-    const catalogUrl = new URL(config.CATALOG_URL || 'http://localhost:3001');
+    const envCatalog = process.env.CATALOG_URL;
+    const config = fs.existsSync(CONFIG_PATH) ? (readJSON(CONFIG_PATH) || {}) : {};
+    const catalogUrl = new URL(envCatalog || config.CATALOG_URL || 'http://localhost:3001');
 
     // 1) Get info
     const infoResp = await httpRequest({

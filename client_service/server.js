@@ -40,8 +40,9 @@ app.get('/', (req, res) => {
 // GET /search/:topic -> proxy to catalog_service
 app.get('/search/:topic', async (req, res) => {
   try {
-    const config = readJSON(CONFIG_PATH) || {};
-    const catalogUrl = new URL(config.CATALOG_URL || 'http://localhost:3001');
+    const envCatalog = process.env.CATALOG_URL;
+    const config = fs.existsSync(CONFIG_PATH) ? (readJSON(CONFIG_PATH) || {}) : {};
+    const catalogUrl = new URL(envCatalog || config.CATALOG_URL || 'http://localhost:3001');
     const topic = encodeURIComponent(req.params.topic || '');
     const resp = await httpRequest({
       hostname: catalogUrl.hostname,
@@ -66,8 +67,9 @@ app.get('/info/:id', async (req, res) => {
   try {
     const id = parseInt(req.params.id, 10);
     if (Number.isNaN(id)) return res.status(400).json({ error: 'invalid_id' });
-    const config = readJSON(CONFIG_PATH) || {};
-    const catalogUrl = new URL(config.CATALOG_URL || 'http://localhost:3001');
+    const envCatalog = process.env.CATALOG_URL;
+    const config = fs.existsSync(CONFIG_PATH) ? (readJSON(CONFIG_PATH) || {}) : {};
+    const catalogUrl = new URL(envCatalog || config.CATALOG_URL || 'http://localhost:3001');
     const resp = await httpRequest({
       hostname: catalogUrl.hostname,
       port: catalogUrl.port || 80,
@@ -91,8 +93,9 @@ app.post('/purchase/:id', async (req, res) => {
   try {
     const id = parseInt(req.params.id, 10);
     if (Number.isNaN(id)) return res.status(400).json({ error: 'invalid_id' });
-    const config = readJSON(CONFIG_PATH) || {};
-    const orderUrl = new URL(config.ORDER_URL || 'http://localhost:3002');
+    const envOrder = process.env.ORDER_URL;
+    const config = fs.existsSync(CONFIG_PATH) ? (readJSON(CONFIG_PATH) || {}) : {};
+    const orderUrl = new URL(envOrder || config.ORDER_URL || 'http://localhost:3002');
     const resp = await httpRequest({
       hostname: orderUrl.hostname,
       port: orderUrl.port || 80,
