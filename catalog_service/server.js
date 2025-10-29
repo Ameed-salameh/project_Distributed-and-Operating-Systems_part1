@@ -7,7 +7,7 @@ const DATA_PATH = path.join(__dirname, 'catalog.json');
 
 app.use(express.json());
 
-// Simple in-process mutex to serialize updates
+// Simple in-process mutex  to serialize updates
 const updateLock = {
   locked: false,
   queue: [],
