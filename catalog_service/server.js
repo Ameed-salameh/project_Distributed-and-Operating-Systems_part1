@@ -151,3 +151,5 @@ app.get('/info/:id', (req, res) => {
 app.listen(PORT, () => {
   console.log(`catalog_service listening on port ${PORT}`);
 });
+
+
