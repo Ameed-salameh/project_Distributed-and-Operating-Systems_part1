@@ -5,7 +5,7 @@ const http = require('http');
 const app = express();
 const PORT = process.env.PORT || 3002;
 const CONFIG_PATH = path.join(__dirname, 'config.json');
-const ORDERS_PATH = path.join(__dirname, 'orders.json');
+const ORDERS_PATH = path.join(__dirname, 'orders.csv');
 
 app.use(express.json());
 
@@ -14,8 +14,24 @@ function readJSON(filePath) {
   return JSON.parse(raw || 'null');
 }
 
-function writeJSON(filePath, obj) {
-  fs.writeFileSync(filePath, JSON.stringify(obj, null, 2), 'utf8');
+function ensureOrdersHeader() {
+  if (!fs.existsSync(ORDERS_PATH) || fs.readFileSync(ORDERS_PATH, 'utf8').trim() === '') {
+    fs.writeFileSync(ORDERS_PATH, 'id,title,price,ts\n', 'utf8');
+  }
+}
+
+function csvEscape(value) {
+  const s = String(value ?? '');
+  if (/[",\n]/.test(s)) {
+    return '"' + s.replace(/"/g, '""') + '"';
+  }
+  return s;
+}
+
+function appendOrderCSV(order) {
+  ensureOrdersHeader();
+  const row = [order.id, csvEscape(order.title), order.price, order.ts].join(',') + '\n';
+  fs.appendFileSync(ORDERS_PATH, row, 'utf8');
 }
 
 function httpRequest(options, body) {
@@ -92,15 +108,13 @@ app.post('/purchase/:id', async (req, res) => {
     }
 
     // 3) Record order
-    const existing = readJSON(ORDERS_PATH) || [];
     const order = {
       id,
       title,
       price,
       ts: new Date().toISOString()
     };
-    existing.push(order);
-    writeJSON(ORDERS_PATH, existing);
+    appendOrderCSV(order);
 
     console.log(`bought book ${title}`);
     return res.json({ status: 'ok', order });

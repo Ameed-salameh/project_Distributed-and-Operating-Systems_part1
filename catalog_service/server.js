@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 3001;
-const DATA_PATH = path.join(__dirname, 'catalog.json');
+const DATA_PATH = path.join(__dirname, 'catalog.csv');
 
 app.use(express.json());
 
@@ -34,12 +34,45 @@ app.get('/', (req, res) => {
   res.send('catalog_service is running');
 });
 
+function parseCSV(text) {
+  const lines = (text || '').trim().split(/\r?\n/).filter(Boolean);
+  if (lines.length === 0) return [];
+  const headers = lines[0].split(',');
+  return lines.slice(1).map(line => {
+    const cols = line.split(',');
+    const obj = {};
+    headers.forEach((h, i) => {
+      obj[h] = cols[i];
+    });
+    obj.id = parseInt(obj.id, 10);
+    obj.quantity = parseInt(obj.quantity, 10);
+    obj.price = Number(obj.price);
+    return obj;
+  });
+}
+
+function toCSV(rows) {
+  const headers = ['id','title','topic','quantity','price'];
+  const hdr = headers.join(',');
+  const body = (rows || []).map(r => headers.map(h => `${r[h]}`).join(',')).join('\n');
+  return [hdr, body].filter(Boolean).join('\n');
+}
+
+function readCatalog() {
+  if (!fs.existsSync(DATA_PATH)) return [];
+  const raw = fs.readFileSync(DATA_PATH, 'utf8');
+  return parseCSV(raw);
+}
+
+function writeCatalog(rows) {
+  fs.writeFileSync(DATA_PATH, toCSV(rows), 'utf8');
+}
+
 // GET /search/:topic -> returns array of { id, title }
 app.get('/search/:topic', (req, res) => {
   try {
     const topic = decodeURIComponent(req.params.topic || '').toLowerCase();
-    const raw = fs.readFileSync(DATA_PATH, 'utf8');
-    const books = JSON.parse(raw);
+    const books = readCatalog();
     const items = books
       .filter(b => (b.topic || '').toLowerCase() === topic)
       .map(b => ({ id: b.id, title: b.title }));
@@ -59,8 +92,7 @@ app.post('/update', async (req, res) => {
     if (Number.isNaN(parsedId)) {
       return res.status(400).json({ error: 'invalid_id' });
     }
-    const raw = fs.readFileSync(DATA_PATH, 'utf8');
-    const books = JSON.parse(raw);
+    const books = readCatalog();
     const idx = books.findIndex(b => b.id === parsedId);
     if (idx === -1) {
       return res.status(404).json({ error: 'not_found' });
@@ -85,7 +117,7 @@ app.post('/update', async (req, res) => {
       }
       books[idx].quantity = newQty;
     }
-    fs.writeFileSync(DATA_PATH, JSON.stringify(books, null, 2), 'utf8');
+    writeCatalog(books);
     const { title, quantity, price: newPrice } = books[idx];
     return res.json({ id: parsedId, title, quantity, price: newPrice });
   } catch (err) {
@@ -103,8 +135,7 @@ app.get('/info/:id', (req, res) => {
     if (Number.isNaN(id)) {
       return res.status(400).json({ error: 'invalid_id' });
     }
-    const raw = fs.readFileSync(DATA_PATH, 'utf8');
-    const books = JSON.parse(raw);
+    const books = readCatalog();
     const found = books.find(b => b.id === id);
     if (!found) {
       return res.status(404).json({ error: 'not_found' });
