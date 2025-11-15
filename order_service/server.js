@@ -72,7 +72,7 @@ app.post('/purchase/:id', async (req, res) => {
     const config = fs.existsSync(CONFIG_PATH) ? (readJSON(CONFIG_PATH) || {}) : {};
     const catalogUrl = new URL(envCatalog || config.CATALOG_URL || 'http://localhost:3001');
 
-    // 1) Get info
+    //  Get 
     const infoResp = await httpRequest({
       hostname: catalogUrl.hostname,
       port: catalogUrl.port || 80,
@@ -91,7 +91,7 @@ app.post('/purchase/:id', async (req, res) => {
       return res.status(409).json({ error: 'out_of_stock' });
     }
 
-    // 2) Decrement stock
+  
     const updateBody = JSON.stringify({ id, quantityDelta: -1 });
     const updateResp = await httpRequest({
       hostname: catalogUrl.hostname,
@@ -107,7 +107,7 @@ app.post('/purchase/:id', async (req, res) => {
       return res.status(updateResp.statusCode || 502).json({ error: 'catalog_update_failed', detail: updateResp.body });
     }
 
-    // 3) Record order
+  
     const order = {
       id,
       title,
