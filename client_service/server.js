@@ -37,7 +37,7 @@ app.get('/', (req, res) => {
   res.send('client_service is running');
 });
 
-// GET /search/:topic -> proxy to catalog_service
+// GET /search
 app.get('/search/:topic', async (req, res) => {
   try {
     const envCatalog = process.env.CATALOG_URL;
@@ -62,7 +62,7 @@ app.get('/search/:topic', async (req, res) => {
   }
 });
 
-// GET /info/:id -> proxy to catalog_service
+// GET /info/
 app.get('/info/:id', async (req, res) => {
   try {
     const id = parseInt(req.params.id, 10);
@@ -88,7 +88,7 @@ app.get('/info/:id', async (req, res) => {
   }
 });
 
-// POST /purchase/:id -> proxy to order_service
+// POST /purchase
 app.post('/purchase/:id', async (req, res) => {
   try {
     const id = parseInt(req.params.id, 10);

@@ -7,7 +7,7 @@ const DATA_PATH = path.join(__dirname, 'catalog.csv');
 
 app.use(express.json());
 
-// Simple in-process mutex  to serialize updates
+
 const updateLock = {
   locked: false,
   queue: [],
@@ -68,7 +68,7 @@ function writeCatalog(rows) {
   fs.writeFileSync(DATA_PATH, toCSV(rows), 'utf8');
 }
 
-// GET /search/:topic -> returns array of { id, title }
+// GET /search
 app.get('/search/:topic', (req, res) => {
   try {
     const topic = decodeURIComponent(req.params.topic || '').toLowerCase();
@@ -83,7 +83,7 @@ app.get('/search/:topic', (req, res) => {
   }
 });
 
-// POST /update -> body: { id: number, price?: number, quantityDelta?: number }
+// POST /update
 app.post('/update', async (req, res) => {
   await acquireLock();
   try {
