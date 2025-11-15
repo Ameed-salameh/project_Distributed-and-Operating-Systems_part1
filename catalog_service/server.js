@@ -97,7 +97,7 @@ app.post('/update', async (req, res) => {
     if (idx === -1) {
       return res.status(404).json({ error: 'not_found' });
     }
-    // update price if provided
+    // update price i
     if (price !== undefined) {
       const p = Number(price);
       if (!Number.isFinite(p) || p < 0) {
@@ -105,7 +105,7 @@ app.post('/update', async (req, res) => {
       }
       books[idx].price = p;
     }
-    // apply quantity delta if provided
+    
     if (quantityDelta !== undefined) {
       const qd = parseInt(quantityDelta, 10);
       if (!Number.isFinite(qd)) {
@@ -128,7 +128,7 @@ app.post('/update', async (req, res) => {
   }
 });
 
-// GET /info/:id -> returns { title, quantity, price }
+// GET /info
 app.get('/info/:id', (req, res) => {
   try {
     const id = parseInt(req.params.id, 10);
