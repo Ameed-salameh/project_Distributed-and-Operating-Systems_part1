@@ -1,0 +1,30 @@
+version: '3'
+
+services:
+  catalog:
+    build: ./catalog_service
+    container_name: catalog
+    ports:
+      - "3001:3001"
+
+  order:
+    build: ./order_service
+    container_name: order
+    ports:
+      - "3002:3002"
+    depends_on:
+      - catalog
+    environment:
+      - CATALOG_URL=http://catalog:3001  
+
+  client:
+    build: ./client_service
+    container_name: client
+    ports:
+      - "3000:3000"
+    depends_on:
+      - catalog
+      - order
+    environment:
+      - CATALOG_URL=http://catalog:3001   
+      - ORDER_URL=http://order:3002       

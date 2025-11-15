@@ -1,0 +1,4 @@
+{
+  "catalog_url": "http://catalog:3001",
+  "order_url": "http://order:3002"
+}
