@@ -54,7 +54,13 @@ function parseCSV(text) {
 function toCSV(rows) {
   const headers = ['id','title','topic','quantity','price'];
   const hdr = headers.join(',');
-  const body = (rows || []).map(r => headers.map(h => `${r[h]}`).join(',')).join('\n');
+  const body = (rows || []).map(r => {
+    return headers.map(h => {
+      const val = r[h];
+      // Ensure numbers are properly formatted
+      return (typeof val === 'number') ? val : (val || '');
+    }).join(',');
+  }).join('\n');
   return [hdr, body].filter(Boolean).join('\n');
 }
 
@@ -97,7 +103,10 @@ app.post('/update', async (req, res) => {
     if (idx === -1) {
       return res.status(404).json({ error: 'not_found' });
     }
-    // update price i
+    
+    console.log(`[UPDATE] id=${parsedId}, quantityDelta=${quantityDelta}, current_quantity=${books[idx].quantity}`);
+    
+    // update price if provided
     if (price !== undefined) {
       const p = Number(price);
       if (!Number.isFinite(p) || p < 0) {
@@ -108,17 +117,21 @@ app.post('/update', async (req, res) => {
     
     if (quantityDelta !== undefined) {
       const qd = parseInt(quantityDelta, 10);
-      if (!Number.isFinite(qd)) {
+      if (Number.isNaN(qd)) {
         return res.status(400).json({ error: 'invalid_quantityDelta' });
       }
-      const newQty = (parseInt(books[idx].quantity, 10) || 0) + qd;
+      const currentQty = parseInt(books[idx].quantity, 10) || 0;
+      const newQty = currentQty + qd;
       if (newQty < 0) {
         return res.status(400).json({ error: 'quantity_cannot_be_negative' });
       }
+      console.log(`[UPDATE] new_quantity=${newQty}`);
       books[idx].quantity = newQty;
     }
+    
     writeCatalog(books);
     const { title, quantity, price: newPrice } = books[idx];
+    console.log(`[UPDATE] SUCCESS: title=${title}, quantity=${quantity}, price=${newPrice}`);
     return res.json({ id: parsedId, title, quantity, price: newPrice });
   } catch (err) {
     console.error('update error:', err.message);

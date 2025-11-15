@@ -72,7 +72,9 @@ app.post('/purchase/:id', async (req, res) => {
     const config = fs.existsSync(CONFIG_PATH) ? (readJSON(CONFIG_PATH) || {}) : {};
     const catalogUrl = new URL(envCatalog || config.CATALOG_URL || 'http://localhost:3001');
 
-    //  Get 
+    console.log(`[PURCHASE] Starting purchase for id=${id}`);
+    
+    //  Get item info
     const infoResp = await httpRequest({
       hostname: catalogUrl.hostname,
       port: catalogUrl.port || 80,
@@ -84,6 +86,8 @@ app.post('/purchase/:id', async (req, res) => {
       return res.status(infoResp.statusCode || 502).json({ error: 'catalog_info_failed', detail: infoResp.body });
     }
     const { title, quantity, price } = infoResp.body || {};
+    console.log(`[PURCHASE] Item info: title=${title}, quantity=${quantity}, price=${price}`);
+    
     if (!title) {
       return res.status(404).json({ error: 'not_found' });
     }
@@ -93,6 +97,8 @@ app.post('/purchase/:id', async (req, res) => {
 
   
     const updateBody = JSON.stringify({ id, quantityDelta: -1 });
+    console.log(`[PURCHASE] Sending update request: ${updateBody}`);
+    
     const updateResp = await httpRequest({
       hostname: catalogUrl.hostname,
       port: catalogUrl.port || 80,
@@ -103,6 +109,9 @@ app.post('/purchase/:id', async (req, res) => {
         'Content-Length': Buffer.byteLength(updateBody)
       }
     }, updateBody);
+    
+    console.log(`[PURCHASE] Update response status: ${updateResp.statusCode}, body: ${JSON.stringify(updateResp.body)}`);
+    
     if (updateResp.statusCode !== 200) {
       return res.status(updateResp.statusCode || 502).json({ error: 'catalog_update_failed', detail: updateResp.body });
     }
