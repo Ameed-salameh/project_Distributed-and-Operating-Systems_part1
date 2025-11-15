@@ -38,7 +38,9 @@ function parseCSV(text) {
   const lines = (text || '').trim().split(/\r?\n/).filter(Boolean);
   if (lines.length === 0) return [];
   const headers = lines[0].split(',');
-  return lines.slice(1).map(line => {
+  console.log(`[parseCSV] Headers: ${headers.join(', ')}`);
+  
+  const result = lines.slice(1).map((line, lineIdx) => {
     const cols = line.split(',');
     const obj = {};
     headers.forEach((h, i) => {
@@ -47,8 +49,10 @@ function parseCSV(text) {
     obj.id = parseInt(obj.id, 10);
     obj.quantity = parseInt(obj.quantity, 10);
     obj.price = Number(obj.price);
+    console.log(`[parseCSV] Line ${lineIdx + 1}: id=${obj.id}, title=${obj.title}, quantity=${obj.quantity}`);
     return obj;
   });
+  return result;
 }
 
 function toCSV(rows) {
@@ -67,11 +71,16 @@ function toCSV(rows) {
 function readCatalog() {
   if (!fs.existsSync(DATA_PATH)) return [];
   const raw = fs.readFileSync(DATA_PATH, 'utf8');
-  return parseCSV(raw);
+  const result = parseCSV(raw);
+  console.log(`[readCatalog] Read ${result.length} items from ${DATA_PATH}`);
+  return result;
 }
 
 function writeCatalog(rows) {
-  fs.writeFileSync(DATA_PATH, toCSV(rows), 'utf8');
+  const csv = toCSV(rows);
+  fs.writeFileSync(DATA_PATH, csv, 'utf8');
+  console.log(`[writeCatalog] Wrote ${rows.length} items to ${DATA_PATH}`);
+  console.log(`[writeCatalog] CSV content:\n${csv}`);
 }
 
 // GET /search
