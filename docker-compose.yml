@@ -15,7 +15,7 @@ services:
     depends_on:
       - catalog
     environment:
-      - CATALOG_URL=http://catalog:3001   # ✅ مهم جدًا
+      - CATALOG_URL=http://catalog:3001  
 
   client:
     build: ./client_service
@@ -26,5 +26,5 @@ services:
       - catalog
       - order
     environment:
-      - CATALOG_URL=http://catalog:3001   # ✅ يخلي client يعرف يتواصل مع catalog
-      - ORDER_URL=http://order:3002       # ✅ يخلي client يعرف يتواصل مع order
+      - CATALOG_URL=http://catalog:3001   
+      - ORDER_URL=http://order:3002       
