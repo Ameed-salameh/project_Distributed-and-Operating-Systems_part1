@@ -1,30 +1,74 @@
 version: '3'
 
 services:
-  catalog:
+  # ============ LAB 2: Catalog Replica 1 ============
+  catalog-replica-1:
     build: ./catalog_service
-    container_name: catalog
+    container_name: catalog-replica-1
     ports:
       - "3001:3001"
+    environment:
+      - CLIENT_URL=http://client:3000
+    volumes:
+      - catalog-data:/app
 
-  order:
+  # ============ LAB 2: Catalog Replica 2 ============
+  catalog-replica-2:
+    build: ./catalog_service
+    container_name: catalog-replica-2
+    ports:
+      - "3011:3001"
+    environment:
+      - CLIENT_URL=http://client:3000
+    volumes:
+      - catalog-data:/app
+
+  # ============ LAB 2: Order Replica 1 ============
+  order-replica-1:
     build: ./order_service
-    container_name: order
+    container_name: order-replica-1
     ports:
       - "3002:3002"
     depends_on:
-      - catalog
+      - catalog-replica-1
+      - catalog-replica-2
     environment:
-      - CATALOG_URL=http://catalog:3001  
+      - CATALOG_URLS=http://catalog-replica-1:3001,http://catalog-replica-2:3001
+      - CLIENT_URL=http://client:3000
+    volumes:
+      - order-data:/app
 
+  # ============ LAB 2: Order Replica 2 ============
+  order-replica-2:
+    build: ./order_service
+    container_name: order-replica-2
+    ports:
+      - "3012:3002"
+    depends_on:
+      - catalog-replica-1
+      - catalog-replica-2
+    environment:
+      - CATALOG_URLS=http://catalog-replica-1:3001,http://catalog-replica-2:3001
+      - CLIENT_URL=http://client:3000
+    volumes:
+      - order-data:/app
+
+  # ============ LAB 2: Client (Front-End) ============
   client:
     build: ./client_service
     container_name: client
     ports:
       - "3000:3000"
     depends_on:
-      - catalog
-      - order
+      - catalog-replica-1
+      - catalog-replica-2
+      - order-replica-1
+      - order-replica-2
     environment:
-      - CATALOG_URL=http://catalog:3001   
-      - ORDER_URL=http://order:3002       
+      - CATALOG_URLS=http://catalog-replica-1:3001,http://catalog-replica-2:3001
+      - ORDER_URLS=http://order-replica-1:3002,http://order-replica-2:3002
+
+# ============ LAB 2: Shared Volumes for Data Consistency ============
+volumes:
+  catalog-data:
+  order-data:       

@@ -14,6 +14,30 @@ function readJSON(filePath) {
   return JSON.parse(raw || 'null');
 }
 
+// ============ LAB 2: Get All Catalog Replicas ============
+function getCatalogReplicas() {
+  const envCatalog = process.env.CATALOG_URLS;
+  if (envCatalog) {
+    return envCatalog.split(',').map(url => new URL(url.trim()));
+  }
+  const config = fs.existsSync(CONFIG_PATH) ? (readJSON(CONFIG_PATH) || {}) : {};
+  if (config.CATALOG_URLS && Array.isArray(config.CATALOG_URLS)) {
+    return config.CATALOG_URLS.map(url => new URL(url));
+  }
+  // Fallback to single catalog
+  const catalogUrl = process.env.CATALOG_URL || config.CATALOG_URL || 'http://localhost:3001';
+  return [new URL(catalogUrl)];
+}
+
+// ============ LAB 2: Get Client Service URL ============
+function getClientServiceURL() {
+  const envClient = process.env.CLIENT_URL;
+  if (envClient) return new URL(envClient);
+  const config = fs.existsSync(CONFIG_PATH) ? (readJSON(CONFIG_PATH) || {}) : {};
+  if (config.CLIENT_URL) return new URL(config.CLIENT_URL);
+  return new URL('http://localhost:3000');
+}
+
 function ensureOrdersHeader() {
   if (!fs.existsSync(ORDERS_PATH) || fs.readFileSync(ORDERS_PATH, 'utf8').trim() === '') {
     fs.writeFileSync(ORDERS_PATH, 'id,title,price,ts\n', 'utf8');
@@ -68,16 +92,14 @@ app.post('/purchase/:id', async (req, res) => {
       return res.status(400).json({ error: 'invalid_id' });
     }
 
-    const envCatalog = process.env.CATALOG_URL;
-    const config = fs.existsSync(CONFIG_PATH) ? (readJSON(CONFIG_PATH) || {}) : {};
-    const catalogUrl = new URL(envCatalog || config.CATALOG_URL || 'http://localhost:3001');
+    // ============ LAB 2: Get first catalog replica for info ============
+    const catalogReplicas = getCatalogReplicas();
+    const firstCatalog = catalogReplicas[0];
 
-    console.log(`[PURCHASE] Starting purchase for id=${id}`);
-    
-    //  Get item info
+    //  Get 
     const infoResp = await httpRequest({
-      hostname: catalogUrl.hostname,
-      port: catalogUrl.port || 80,
+      hostname: firstCatalog.hostname,
+      port: firstCatalog.port || 80,
       path: `/info/${id}`,
       method: 'GET',
       headers: { 'Accept': 'application/json' }
@@ -86,8 +108,6 @@ app.post('/purchase/:id', async (req, res) => {
       return res.status(infoResp.statusCode || 502).json({ error: 'catalog_info_failed', detail: infoResp.body });
     }
     const { title, quantity, price } = infoResp.body || {};
-    console.log(`[PURCHASE] Item info: title=${title}, quantity=${quantity}, price=${price}`);
-    
     if (!title) {
       return res.status(404).json({ error: 'not_found' });
     }
@@ -95,13 +115,13 @@ app.post('/purchase/:id', async (req, res) => {
       return res.status(409).json({ error: 'out_of_stock' });
     }
 
-  
+    // ============ LAB 2: Update ONE Catalog Replica ============
+    // Note: Since replicas share the same volume, updating one replica
+    // automatically updates the shared catalog.csv file that all replicas read from
     const updateBody = JSON.stringify({ id, quantityDelta: -1 });
-    console.log(`[PURCHASE] Sending update request: ${updateBody}`);
-    
     const updateResp = await httpRequest({
-      hostname: catalogUrl.hostname,
-      port: catalogUrl.port || 80,
+      hostname: firstCatalog.hostname,
+      port: firstCatalog.port || 80,
       path: `/update`,
       method: 'POST',
       headers: {
@@ -110,13 +130,31 @@ app.post('/purchase/:id', async (req, res) => {
       }
     }, updateBody);
     
-    console.log(`[PURCHASE] Update response status: ${updateResp.statusCode}, body: ${JSON.stringify(updateResp.body)}`);
-    
     if (updateResp.statusCode !== 200) {
-      return res.status(updateResp.statusCode || 502).json({ error: 'catalog_update_failed', detail: updateResp.body });
+      return res.status(updateResp.statusCode || 502).json({ 
+        error: 'catalog_update_failed', 
+        detail: updateResp.body 
+      });
     }
+    
+    console.log(`Updated catalog via replica at ${firstCatalog.hostname}:${firstCatalog.port}`);
 
-  
+    // ============ LAB 2: Send Cache Invalidation to Client ============
+    const clientUrl = getClientServiceURL();
+    const invalidateBody = JSON.stringify({ key: `info:${id}` });
+    httpRequest({
+      hostname: clientUrl.hostname,
+      port: clientUrl.port || 80,
+      path: '/invalidate',
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Content-Length': Buffer.byteLength(invalidateBody)
+      }
+    }, invalidateBody).catch(err => {
+      console.error('Cache invalidation failed:', err.message);
+    });
+
     const order = {
       id,
       title,
