@@ -5,7 +5,19 @@ const http = require('http');
 const app = express();
 const PORT = process.env.PORT || 3002;
 const CONFIG_PATH = path.join(__dirname, 'config.json');
-const ORDERS_PATH = path.join(__dirname, 'orders.csv');
+const DATA_DIR = path.join(__dirname, 'data');
+const ORDERS_PATH = path.join(DATA_DIR, 'orders.csv');
+
+// Create data directory if it doesn't exist
+if (!fs.existsSync(DATA_DIR)) {
+  fs.mkdirSync(DATA_DIR, { recursive: true });
+}
+
+// Copy initial orders.csv to data directory if not exists
+const INITIAL_ORDERS = path.join(__dirname, 'orders.csv');
+if (!fs.existsSync(ORDERS_PATH) && fs.existsSync(INITIAL_ORDERS)) {
+  fs.copyFileSync(INITIAL_ORDERS, ORDERS_PATH);
+}
 
 app.use(express.json());
 

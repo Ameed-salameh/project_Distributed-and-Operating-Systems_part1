@@ -1,5 +1,3 @@
-version: '3'
-
 services:
   # ============ LAB 2: Catalog Replica 1 ============
   catalog-replica-1:
@@ -10,7 +8,8 @@ services:
     environment:
       - CLIENT_URL=http://client:3000
     volumes:
-      - catalog-data:/app
+      - catalog-data:/app/data
+      - /app/node_modules
 
   # ============ LAB 2: Catalog Replica 2 ============
   catalog-replica-2:
@@ -21,7 +20,8 @@ services:
     environment:
       - CLIENT_URL=http://client:3000
     volumes:
-      - catalog-data:/app
+      - catalog-data:/app/data
+      - /app/node_modules
 
   # ============ LAB 2: Order Replica 1 ============
   order-replica-1:
@@ -36,7 +36,8 @@ services:
       - CATALOG_URLS=http://catalog-replica-1:3001,http://catalog-replica-2:3001
       - CLIENT_URL=http://client:3000
     volumes:
-      - order-data:/app
+      - order-data:/app/data
+      - /app/node_modules
 
   # ============ LAB 2: Order Replica 2 ============
   order-replica-2:
@@ -51,7 +52,8 @@ services:
       - CATALOG_URLS=http://catalog-replica-1:3001,http://catalog-replica-2:3001
       - CLIENT_URL=http://client:3000
     volumes:
-      - order-data:/app
+      - order-data:/app/data
+      - /app/node_modules
 
   # ============ LAB 2: Client (Front-End) ============
   client:

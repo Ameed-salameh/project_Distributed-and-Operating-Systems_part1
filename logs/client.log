@@ -1,1 +1,27 @@
 client_service listening on port 3000
+Cache MISS: info/1
+Info: {
+  title: 'How to get a good grade in DOS in 40 minutes a day',
+  quantity: 9,
+  price: 30
+}
+Cache MISS: search/distributed systems
+Search results: [
+  {
+    id: 1,
+    title: 'How to get a good grade in DOS in 40 minutes a day'
+  },
+  { id: 2, title: 'RPCs for Noobs' }
+]
+Cache invalidation: search:distributed systems - deleted
+Cache invalidation: info:1 - deleted
+Purchase response: {
+  status: 'ok',
+  order: {
+    id: 1,
+    title: 'How to get a good grade in DOS in 40 minutes a day',
+    price: 30,
+    ts: '2025-12-20T17:33:05.043Z'
+  }
+}
+Cache invalidation: info:1 - not found

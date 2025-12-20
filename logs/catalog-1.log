@@ -1,11 +1,5 @@
 catalog_service listening on port 3001
-[2025-12-18T14:19:49.456Z] GET /info/1
-[2025-12-18T14:19:49.922Z] GET /info/1
-[2025-12-18T14:19:50.364Z] GET /info/1
-[2025-12-18T14:19:50.816Z] GET /info/1
-[2025-12-18T14:19:51.264Z] GET /info/1
-[2025-12-18T14:21:28.386Z] GET /info/2
-[2025-12-18T14:21:28.947Z] GET /info/2
-Cache invalidation sent for key: info:2, status: 200
+[2025-12-20T17:25:47.708Z] GET /info/1
+[2025-12-20T17:33:04.893Z] GET /info/1
 Cache invalidation sent for key: search:distributed systems, status: 200
-[2025-12-18T14:21:30.008Z] GET /info/2
+Cache invalidation sent for key: info:1, status: 200

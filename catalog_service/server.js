@@ -4,7 +4,19 @@ const path = require('path');
 const http = require('http');
 const app = express();
 const PORT = process.env.PORT || 3001;
-const DATA_PATH = path.join(__dirname, 'catalog.csv');
+const DATA_DIR = path.join(__dirname, 'data');
+const DATA_PATH = path.join(DATA_DIR, 'catalog.csv');
+
+// Create data directory if it doesn't exist
+if (!fs.existsSync(DATA_DIR)) {
+  fs.mkdirSync(DATA_DIR, { recursive: true });
+}
+
+// Copy initial catalog.csv to data directory if not exists
+const INITIAL_DATA = path.join(__dirname, 'catalog.csv');
+if (!fs.existsSync(DATA_PATH) && fs.existsSync(INITIAL_DATA)) {
+  fs.copyFileSync(INITIAL_DATA, DATA_PATH);
+}
 
 app.use(express.json());
 
