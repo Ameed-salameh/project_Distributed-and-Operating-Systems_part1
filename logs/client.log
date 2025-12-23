@@ -1,0 +1,478 @@
+client_service listening on port 3000
+Cache invalidation: info:1 - not found
+Cache MISS: info/1
+Info: {
+  title: 'How to get a good grade in DOS in 40 minutes a day',
+  quantity: 7,
+  price: 30
+}
+Cache HIT: info/1
+Cache invalidation: search:distributed systems - not found
+Cache invalidation: info:1 - deleted
+Purchase response: {
+  status: 'ok',
+  order: {
+    id: 1,
+    title: 'How to get a good grade in DOS in 40 minutes a day',
+    price: 30,
+    ts: '2025-12-22T20:02:24.549Z'
+  }
+}
+Cache invalidation: info:1 - not found
+Cache MISS: info/1
+Info: {
+  title: 'How to get a good grade in DOS in 40 minutes a day',
+  quantity: 6,
+  price: 30
+}
+Cache invalidation: info:1 - deleted
+Cache MISS: info/1
+Info: {
+  title: 'How to get a good grade in DOS in 40 minutes a day',
+  quantity: 6,
+  price: 30
+}
+Cache HIT: info/1
+Cache invalidation: info:1 - deleted
+Cache MISS: info/1
+Info: {
+  title: 'How to get a good grade in DOS in 40 minutes a day',
+  quantity: 6,
+  price: 30
+}
+Cache invalidation: info:1 - deleted
+Cache MISS: info/1
+Info: {
+  title: 'How to get a good grade in DOS in 40 minutes a day',
+  quantity: 6,
+  price: 30
+}
+Cache invalidation: info:1 - deleted
+Cache MISS: info/1
+Info: {
+  title: 'How to get a good grade in DOS in 40 minutes a day',
+  quantity: 6,
+  price: 30
+}
+Cache invalidation: info:1 - deleted
+Cache MISS: info/1
+Info: {
+  title: 'How to get a good grade in DOS in 40 minutes a day',
+  quantity: 6,
+  price: 30
+}
+Cache invalidation: info:1 - deleted
+Cache MISS: info/1
+Info: {
+  title: 'How to get a good grade in DOS in 40 minutes a day',
+  quantity: 6,
+  price: 30
+}
+Cache invalidation: info:1 - deleted
+Cache MISS: info/1
+Info: {
+  title: 'How to get a good grade in DOS in 40 minutes a day',
+  quantity: 6,
+  price: 30
+}
+Cache invalidation: info:1 - deleted
+Cache MISS: info/1
+Info: {
+  title: 'How to get a good grade in DOS in 40 minutes a day',
+  quantity: 6,
+  price: 30
+}
+Cache invalidation: info:1 - deleted
+Cache MISS: info/1
+Info: {
+  title: 'How to get a good grade in DOS in 40 minutes a day',
+  quantity: 6,
+  price: 30
+}
+Cache invalidation: info:1 - deleted
+Cache MISS: info/1
+Info: {
+  title: 'How to get a good grade in DOS in 40 minutes a day',
+  quantity: 6,
+  price: 30
+}
+Cache invalidation: info:1 - deleted
+Cache MISS: info/1
+Info: {
+  title: 'How to get a good grade in DOS in 40 minutes a day',
+  quantity: 6,
+  price: 30
+}
+Cache invalidation: info:2 - not found
+Cache invalidation: search:distributed systems - not found
+Purchase response: {
+  status: 'ok',
+  order: {
+    id: 2,
+    title: 'RPCs for Noobs',
+    price: 50,
+    ts: '2025-12-22T20:04:47.167Z'
+  }
+}
+Cache invalidation: info:2 - not found
+Cache invalidation: info:1 - deleted
+Cache invalidation: search:distributed systems - not found
+Cache invalidation: info:1 - not found
+Cache MISS: info/1
+Info: {
+  title: 'How to get a good grade in DOS in 40 minutes a day',
+  quantity: 6,
+  price: 30
+}
+Cache invalidation: info:1 - deleted
+Cache MISS: info/1
+Info: {
+  title: 'How to get a good grade in DOS in 40 minutes a day',
+  quantity: 6,
+  price: 30
+}
+Cache invalidation: info:1 - deleted
+Cache MISS: info/1
+Info: {
+  title: 'How to get a good grade in DOS in 40 minutes a day',
+  quantity: 6,
+  price: 30
+}
+Cache invalidation: info:1 - deleted
+Cache MISS: info/1
+Info: {
+  title: 'How to get a good grade in DOS in 40 minutes a day',
+  quantity: 6,
+  price: 30
+}
+Cache invalidation: info:1 - deleted
+Cache MISS: info/1
+Info: {
+  title: 'How to get a good grade in DOS in 40 minutes a day',
+  quantity: 6,
+  price: 30
+}
+Cache HIT: info/1
+Cache HIT: info/1
+Cache HIT: info/1
+Cache HIT: info/1
+Cache HIT: info/1
+Cache HIT: info/1
+Cache HIT: info/1
+Cache HIT: info/1
+Cache HIT: info/1
+Cache HIT: info/1
+Cache HIT: info/1
+Cache HIT: info/1
+Cache HIT: info/1
+Cache HIT: info/1
+Cache HIT: info/1
+Cache HIT: info/1
+Cache HIT: info/1
+Cache HIT: info/1
+Cache HIT: info/1
+Cache HIT: info/1
+Cache HIT: info/1
+Cache HIT: info/1
+Cache HIT: info/1
+Cache HIT: info/1
+Cache HIT: info/1
+Cache HIT: info/1
+Cache HIT: info/1
+Cache HIT: info/1
+Cache HIT: info/1
+Cache HIT: info/1
+Cache HIT: info/1
+Cache HIT: info/1
+Cache HIT: info/1
+Cache HIT: info/1
+Cache HIT: info/1
+Cache HIT: info/1
+Cache HIT: info/1
+Cache HIT: info/1
+Cache HIT: info/1
+Cache HIT: info/1
+Cache HIT: info/1
+Cache HIT: info/1
+Cache HIT: info/1
+Cache HIT: info/1
+Cache HIT: info/1
+Cache HIT: info/1
+Cache HIT: info/1
+Cache HIT: info/1
+Cache HIT: info/1
+Cache HIT: info/1
+Cache HIT: info/1
+Cache HIT: info/1
+Cache HIT: info/1
+Cache HIT: info/1
+Cache HIT: info/1
+Cache HIT: info/1
+Cache HIT: info/1
+Cache HIT: info/1
+Cache HIT: info/1
+Cache HIT: info/1
+Cache HIT: info/1
+Cache HIT: info/1
+Cache HIT: info/1
+Cache HIT: info/1
+Cache HIT: info/1
+Cache HIT: info/1
+Cache HIT: info/1
+Cache HIT: info/1
+Cache HIT: info/1
+Cache HIT: info/1
+Cache HIT: info/1
+Cache HIT: info/1
+Cache HIT: info/1
+Cache HIT: info/1
+Cache HIT: info/1
+Cache HIT: info/1
+Cache HIT: info/1
+Cache HIT: info/1
+Cache HIT: info/1
+Cache HIT: info/1
+Cache HIT: info/1
+Cache HIT: info/1
+Cache HIT: info/1
+Cache HIT: info/1
+Cache HIT: info/1
+Cache HIT: info/1
+Cache HIT: info/1
+Cache HIT: info/1
+Cache HIT: info/1
+Cache HIT: info/1
+Cache HIT: info/1
+Cache HIT: info/1
+Cache HIT: info/1
+Cache HIT: info/1
+Cache HIT: info/1
+Cache HIT: info/1
+Cache HIT: info/1
+Cache HIT: info/1
+Cache HIT: info/1
+Cache HIT: info/1
+Cache HIT: info/1
+Cache invalidation: info:1 - deleted
+Cache invalidation: info:1 - not found
+Cache invalidation: info:1 - not found
+Cache invalidation: info:1 - not found
+Cache invalidation: info:1 - not found
+Cache invalidation: info:1 - not found
+Cache invalidation: info:1 - not found
+Cache invalidation: info:1 - not found
+Cache invalidation: info:1 - not found
+Cache invalidation: info:1 - not found
+Cache MISS: info/1
+Info: {
+  title: 'How to get a good grade in DOS in 40 minutes a day',
+  quantity: 6,
+  price: 30
+}
+Cache MISS: search/distributed systems
+Search results: [
+  {
+    id: 1,
+    title: 'How to get a good grade in DOS in 40 minutes a day'
+  },
+  { id: 2, title: 'RPCs for Noobs' }
+]
+Cache MISS: info/1
+Info: {
+  title: 'How to get a good grade in DOS in 40 minutes a day',
+  quantity: 6,
+  price: 30
+}
+Cache HIT: info/1
+Cache MISS: search/distributed systems
+Search results: [
+  {
+    id: 1,
+    title: 'How to get a good grade in DOS in 40 minutes a day'
+  },
+  { id: 2, title: 'RPCs for Noobs' }
+]
+Cache HIT: search/distributed systems
+Cache invalidation: info:1 - deleted
+Cache invalidation: search:distributed systems - deleted
+Purchase response: {
+  status: 'ok',
+  order: {
+    id: 1,
+    title: 'How to get a good grade in DOS in 40 minutes a day',
+    price: 30,
+    ts: '2025-12-22T20:41:42.541Z'
+  }
+}
+Cache invalidation: info:1 - not found
+Cache MISS: search/distributed systems
+Search results: [
+  {
+    id: 1,
+    title: 'How to get a good grade in DOS in 40 minutes a day'
+  },
+  { id: 2, title: 'RPCs for Noobs' }
+]
+Cache HIT: search/distributed systems
+Cache invalidation: search:distributed systems - deleted
+Cache invalidation: info:1 - not found
+Purchase response: {
+  status: 'ok',
+  order: {
+    id: 1,
+    title: 'How to get a good grade in DOS in 40 minutes a day',
+    price: 30,
+    ts: '2025-12-22T20:44:47.441Z'
+  }
+}
+Cache invalidation: info:1 - not found
+Cache MISS: search/distributed systems
+Search results: [
+  {
+    id: 1,
+    title: 'How to get a good grade in DOS in 40 minutes a day'
+  },
+  { id: 2, title: 'RPCs for Noobs' }
+]
+Cache invalidation: info:1 - not found
+Cache invalidation: search:distributed systems - deleted
+Cache invalidation: info:1 - not found
+Cache invalidation: info:4 - not found
+Cache invalidation: search:undergraduate school - not found
+Cache invalidation: info:4 - not found
+Cache MISS: info/1
+Info: {
+  title: 'How to get a good grade in DOS in 40 minutes a day',
+  quantity: 3,
+  price: 30
+}
+Cache MISS: info/1
+Info: {
+  title: 'How to get a good grade in DOS in 40 minutes a day',
+  quantity: 3,
+  price: 30
+}
+Cache HIT: info/1
+Cache invalidation: info:1 - deleted
+Cache MISS: info/1
+Info: {
+  title: 'How to get a good grade in DOS in 40 minutes a day',
+  quantity: 3,
+  price: 30
+}
+Cache invalidation: info:1 - deleted
+Cache MISS: info/1
+Info: {
+  title: 'How to get a good grade in DOS in 40 minutes a day',
+  quantity: 3,
+  price: 30
+}
+Cache HIT: info/1
+Cache invalidation: info:1 - deleted
+Cache MISS: info/1
+Info: {
+  title: 'How to get a good grade in DOS in 40 minutes a day',
+  quantity: 3,
+  price: 30
+}
+Cache HIT: info/1
+Cache invalidation: search:distributed systems - not found
+Cache invalidation: info:1 - deleted
+Purchase response: {
+  status: 'ok',
+  order: {
+    id: 1,
+    title: 'How to get a good grade in DOS in 40 minutes a day',
+    price: 30,
+    ts: '2025-12-22T21:21:45.349Z'
+  }
+}
+Cache invalidation: info:1 - not found
+Cache MISS: info/1
+Info: {
+  title: 'How to get a good grade in DOS in 40 minutes a day',
+  quantity: 2,
+  price: 30
+}
+Cache invalidation: info:1 - deleted
+Cache MISS: info/1
+Info: {
+  title: 'How to get a good grade in DOS in 40 minutes a day',
+  quantity: 2,
+  price: 30
+}
+Cache invalidation: info:1 - deleted
+Cache MISS: info/1
+Info: {
+  title: 'How to get a good grade in DOS in 40 minutes a day',
+  quantity: 2,
+  price: 30
+}
+Cache invalidation: info:1 - deleted
+Cache MISS: info/1
+Info: {
+  title: 'How to get a good grade in DOS in 40 minutes a day',
+  quantity: 2,
+  price: 30
+}
+Cache invalidation: info:1 - deleted
+Cache MISS: info/1
+Info: {
+  title: 'How to get a good grade in DOS in 40 minutes a day',
+  quantity: 2,
+  price: 30
+}
+Cache invalidation: info:1 - deleted
+Cache MISS: info/1
+Info: {
+  title: 'How to get a good grade in DOS in 40 minutes a day',
+  quantity: 2,
+  price: 30
+}
+Cache invalidation: info:1 - deleted
+Cache MISS: info/1
+Info: {
+  title: 'How to get a good grade in DOS in 40 minutes a day',
+  quantity: 2,
+  price: 30
+}
+Cache invalidation: info:1 - deleted
+Cache MISS: info/1
+Info: {
+  title: 'How to get a good grade in DOS in 40 minutes a day',
+  quantity: 2,
+  price: 30
+}
+Cache invalidation: info:1 - deleted
+Cache MISS: info/1
+Info: {
+  title: 'How to get a good grade in DOS in 40 minutes a day',
+  quantity: 2,
+  price: 30
+}
+Cache invalidation: info:1 - deleted
+Cache MISS: info/1
+Info: {
+  title: 'How to get a good grade in DOS in 40 minutes a day',
+  quantity: 2,
+  price: 30
+}
+Cache invalidation: info:1 - deleted
+Cache MISS: info/1
+Info: {
+  title: 'How to get a good grade in DOS in 40 minutes a day',
+  quantity: 2,
+  price: 30
+}
+Cache invalidation: search:distributed systems - not found
+Cache invalidation: info:2 - not found
+Purchase response: {
+  status: 'ok',
+  order: {
+    id: 2,
+    title: 'RPCs for Noobs',
+    price: 50,
+    ts: '2025-12-22T21:29:17.197Z'
+  }
+}
+Cache invalidation: info:2 - not found

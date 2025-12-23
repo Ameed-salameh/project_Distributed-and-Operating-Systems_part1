@@ -1,0 +1,10 @@
+{
+  "CATALOG_URLS": [
+    "http://catalog-replica-1:3001",
+    "http://catalog-replica-2:3001"
+  ],
+  "ORDER_URLS": [
+    "http://order-replica-1:3002",
+    "http://order-replica-2:3002"
+  ]
+}

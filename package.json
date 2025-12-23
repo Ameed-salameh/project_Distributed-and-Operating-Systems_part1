@@ -1,0 +1,30 @@
+{
+  "name": "project_dos_lab2",
+  "version": "2.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test_performance.js",
+    "test:perf": "node test_performance.js",
+    "start:client": "node client_service/server.js",
+    "start:catalog": "node catalog_service/server.js",
+    "start:order": "node order_service/server.js",
+    "start:all": "powershell -ExecutionPolicy Bypass -File ./start_services.ps1",
+    "stop:all": "powershell -ExecutionPolicy Bypass -File ./stop_services.ps1"
+  },
+  "keywords": ["distributed-systems", "microservices", "caching", "load-balancing", "replication"],
+  "author": "",
+  "license": "ISC",
+  "description": "Lab 2 - Distributed Book Store with Replication, Caching, and Load Balancing",
+  "dependencies": {
+    "axios": "^1.13.0",
+    "express": "^5.1.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ameed-salameh/project_Distributed-and-Operating-Systems_part1.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Ameed-salameh/project_Distributed-and-Operating-Systems_part1/issues"
+  },
+  "homepage": "https://github.com/Ameed-salameh/project_Distributed-and-Operating-Systems_part1#readme"
+}

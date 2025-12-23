@@ -1,0 +1,53 @@
+catalog_service listening on port 3001
+[2025-12-22T20:02:24.027Z] GET /info/1
+[2025-12-22T20:02:24.501Z] GET /info/1
+Cache invalidation sent for key: search:distributed systems, status: 200
+Cache invalidation sent for key: info:1, status: 200
+[2025-12-22T20:04:01.594Z] GET /info/1
+[2025-12-22T20:04:31.077Z] GET /info/1
+[2025-12-22T20:04:31.512Z] GET /info/1
+[2025-12-22T20:04:31.955Z] GET /info/1
+[2025-12-22T20:04:32.376Z] GET /info/1
+[2025-12-22T20:04:32.827Z] GET /info/1
+[2025-12-22T20:04:46.593Z] GET /info/2
+[2025-12-22T20:04:47.153Z] GET /info/2
+Cache invalidation sent for key: info:2, status: 200
+Cache invalidation sent for key: search:distributed systems, status: 200
+[2025-12-22T20:04:48.183Z] GET /info/2
+[2025-12-22T20:05:04.410Z] GET /info/1
+[2025-12-22T20:05:04.642Z] GET /info/1
+[2025-12-22T20:07:16.525Z] GET /info/1
+[2025-12-22T20:37:56.722Z] GET /info/1
+[2025-12-22T20:41:42.528Z] GET /info/1
+Cache invalidation sent for key: info:1, status: 200
+Cache invalidation sent for key: search:distributed systems, status: 200
+[2025-12-22T20:44:11.824Z] GET /search/distributed systems
+[2025-12-22T20:44:47.432Z] GET /info/1
+Cache invalidation sent for key: search:distributed systems, status: 200
+Cache invalidation sent for key: info:1, status: 200
+[2025-12-22T20:45:32.550Z] GET /info/1
+[2025-12-22T20:49:38.894Z] GET /info/1
+[2025-12-22T20:52:05.298Z] GET /search/graduate school
+[2025-12-22T20:52:46.377Z] GET /info/1
+[2025-12-22T20:55:32.987Z] GET /info/1
+Cache invalidation sent for key: info:1, status: 200
+Cache invalidation sent for key: search:distributed systems, status: 200
+[2025-12-22T20:56:06.255Z] GET /info/4
+Cache invalidation sent for key: info:4, status: 200
+Cache invalidation sent for key: search:undergraduate school, status: 200
+[2025-12-22T21:11:31.022Z] GET /info/1
+[2025-12-22T21:16:07.810Z] GET /info/1
+[2025-12-22T21:21:44.928Z] GET /info/1
+[2025-12-22T21:21:45.345Z] GET /info/1
+Cache invalidation sent for key: search:distributed systems, status: 200
+Cache invalidation sent for key: info:1, status: 200
+[2025-12-22T21:27:01.401Z] GET /info/1
+[2025-12-22T21:27:01.825Z] GET /info/1
+[2025-12-22T21:27:02.269Z] GET /info/1
+[2025-12-22T21:27:02.690Z] GET /info/1
+[2025-12-22T21:27:03.112Z] GET /info/1
+[2025-12-22T21:29:16.666Z] GET /info/2
+[2025-12-22T21:29:17.189Z] GET /info/2
+Cache invalidation sent for key: search:distributed systems, status: 200
+Cache invalidation sent for key: info:2, status: 200
+[2025-12-22T21:29:18.213Z] GET /info/2

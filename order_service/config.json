@@ -1,0 +1,7 @@
+{
+  "CATALOG_URLS": [
+    "http://catalog-replica-1:3001",
+    "http://catalog-replica-2:3001"
+  ],
+  "CLIENT_URL": "http://client:3000"
+}
